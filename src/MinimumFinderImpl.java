@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 /**
  * {@link BinaryTree} implementation
  */
-public class BinaryTreeImpl implements MinimumFinder {
+public class MinimumFinderImpl implements MinimumFinder {
 
     /**
      * Method that count elements in {@link BinaryTree}. For it, using recursive algorithm
@@ -26,8 +26,10 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (root == null) {
             return true;
         }
-        boolean resultLeft = (root.left == null || root.key > root.left.key) && (root.right == null || root.key < root.right.key);
-        return isBinaryTree(root.left) && isBinaryTree(root.right) && resultLeft;
+        boolean result =
+                (root.left == null || root.key > root.left.key) &&
+                (root.right == null || root.key < root.right.key);
+        return isBinaryTree(root.left) && isBinaryTree(root.right) && result;
     }
 
     /**
@@ -41,7 +43,9 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (n == leftCount) {
             return tree.key;
         }
-        return (n < leftCount) ? getBinaryElement(n, tree.left) : getBinaryElement(n - (leftCount + 1), tree.right);
+        return (n < leftCount) ?
+                getBinaryElement(n, tree.left) :
+                getBinaryElement(n - (leftCount + 1), tree.right);
     }
 
     @Override
@@ -52,8 +56,6 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (!isBinaryTree(tree)) {
             throw new IllegalArgumentException("This tree isn't binary");
         }
-
         return getBinaryElement(n - 1, tree);
     }
-
 }

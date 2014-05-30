@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 /**
  * {@link BinaryTree} implementation
  */
-public class BinaryTreeImpl implements MinimumFinder {
+public class MinimumFinderImpl implements MinimumFinder {
 
     /**
      * Method that count elements in {@link BinaryTree}. For it, using recursive algorithm
@@ -26,8 +26,45 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (root == null) {
             return true;
         }
-        boolean resultLeft = (root.left == null || root.key > root.left.key) && (root.right == null || root.key < root.right.key);
-        return isBinaryTree(root.left) && isBinaryTree(root.right) && resultLeft;
+        if (root.left != null && maxValue(root.left) > root.key ||
+            root.right != null && minValue(root.right) < root.key) {
+                return false;
+        }
+        return isBinaryTree(root.left) && isBinaryTree(root.right);
+    }
+
+    /**
+     * Returns maximum value in subtree {@link BinaryTree}
+     * @param root main root of {@link BinaryTree}
+     * @return maximum value in subtree {@link BinaryTree}
+     */
+    private int maxValue(BinaryTree root) {
+        int maxLeft = Integer.MIN_VALUE;
+        if (root.left != null) {
+            maxLeft = maxValue(root.left);
+        }
+        int maxRight = Integer.MIN_VALUE;
+        if (root.right != null) {
+            maxRight = maxValue(root.right);
+        }
+        return Math.max(root.key, Math.max(maxLeft, maxRight));
+    }
+
+    /**
+     * Returns minimum value in subtree {@link BinaryTree}
+     * @param root main root of {@link BinaryTree}
+     * @return minimum value in subtree {@link BinaryTree}
+     */
+    private int minValue(BinaryTree root) {
+        int minLeft = Integer.MAX_VALUE;
+        if (root.left != null) {
+            minLeft = minValue(root.left);
+        }
+        int minRight = Integer.MAX_VALUE;
+        if (root.right != null) {
+            minRight = minValue(root.right);
+        }
+        return Math.min(root.key, Math.min(minLeft, minRight));
     }
 
     /**
@@ -41,7 +78,9 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (n == leftCount) {
             return tree.key;
         }
-        return (n < leftCount) ? getBinaryElement(n, tree.left) : getBinaryElement(n - (leftCount + 1), tree.right);
+        return (n < leftCount) ?
+                getBinaryElement(n, tree.left) :
+                getBinaryElement(n - (leftCount + 1), tree.right);
     }
 
     @Override
@@ -52,8 +91,6 @@ public class BinaryTreeImpl implements MinimumFinder {
         if (!isBinaryTree(tree)) {
             throw new IllegalArgumentException("This tree isn't binary");
         }
-
         return getBinaryElement(n - 1, tree);
     }
-
 }

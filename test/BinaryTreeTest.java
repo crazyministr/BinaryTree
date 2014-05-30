@@ -85,52 +85,47 @@ public class BinaryTreeTest extends TestCase {
         }
     }
 
-    public void testPrivateMethodIsBinaryTreeFalse() // test from comments
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+    public void testMethodIsBinaryTreeFalse() { // test from comments
         BinaryTree node1 = new BinaryTree(15, null, null);
         BinaryTree node2 = new BinaryTree(7, null, node1);
         BinaryTree root = new BinaryTree(10, node2, null);
 
-        Class<?> clazz = MinimumFinderImpl.class;
-        Method method = clazz.getDeclaredMethod("isBinaryTree", BinaryTree.class);
-        method.setAccessible(true);
-        assertFalse((Boolean) method.invoke(clazz.newInstance(), root));
+        assertFalse(tree.isBinaryTree(root));
     }
 
-    public void testPrivateMethodIsBinaryTreeTrue()
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+    public void testMethodIsBinaryTreeTrue() {
         BinaryTree node1 = new BinaryTree(8, null, null);
         BinaryTree node2 = new BinaryTree(7, null, node1);
         BinaryTree root = new BinaryTree(10, node2, null);
 
-        Class<?> clazz = MinimumFinderImpl.class;
-        Method method = clazz.getDeclaredMethod("isBinaryTree", BinaryTree.class);
-        method.setAccessible(true);
-        assertTrue((Boolean) method.invoke(clazz.newInstance(), root));
+        assertTrue(tree.isBinaryTree(root));
     }
 
-    public void testPrivateMethodMaxValue()
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+    public void testMethodMaxValue() {
         BinaryTree node1 = new BinaryTree(15, null, null);
         BinaryTree node2 = new BinaryTree(7, null, node1);
         BinaryTree root = new BinaryTree(10, node2, null);
 
-        Class<?> clazz = MinimumFinderImpl.class;
-        Method method = clazz.getDeclaredMethod("maxValue", BinaryTree.class);
-        method.setAccessible(true);
-        assertEquals(15, method.invoke(clazz.newInstance(), root));
+        assertEquals(15, tree.maxValue(root));
     }
 
-    public void testPrivateMethodMinValue()
-            throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+    public void testMethodMinValue() {
         BinaryTree node1 = new BinaryTree(15, null, null);
         BinaryTree node2 = new BinaryTree(7, null, node1);
         BinaryTree root = new BinaryTree(10, node2, null);
 
-        Class<?> clazz = MinimumFinderImpl.class;
-        Method method = clazz.getDeclaredMethod("minValue", BinaryTree.class);
-        method.setAccessible(true);
-        assertEquals(7, method.invoke(clazz.newInstance(), root));
+        assertEquals(7, tree.minValue(root));
     }
 
+    public void testMethodBinaryTreeGetCount() {
+        BinaryTree node1 = new BinaryTree(1, null, null);
+        BinaryTree node3 = new BinaryTree(3, node1, null);
+
+        BinaryTree node9 = new BinaryTree(9, null, null);
+        BinaryTree node18 = new BinaryTree(18, null, null);
+        BinaryTree node10 = new BinaryTree(10, node9, node18);
+
+        BinaryTree root = new BinaryTree(8, node3, node10);
+        assertEquals(6, tree.binaryTreeGetCount(root));
+    }
 }

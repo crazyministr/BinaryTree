@@ -10,7 +10,7 @@ public class MinimumFinderImpl implements MinimumFinder {
      * @param root vertex in which we want to know count of child's
      * @return count of vertex in {@link BinaryTree}
      */
-    private int binaryTreeGetCount(BinaryTree root) {
+    protected int binaryTreeGetCount(BinaryTree root) {
         if (root == null) {
             return 0;
         }
@@ -22,7 +22,7 @@ public class MinimumFinderImpl implements MinimumFinder {
      * @param root main root of {@link BinaryTree}
      * @return true if {@link BinaryTree} is binary, otherwise false
      */
-    private boolean isBinaryTree(BinaryTree root) {
+    protected boolean isBinaryTree(BinaryTree root) {
         if (root == null) {
             return true;
         }
@@ -38,7 +38,7 @@ public class MinimumFinderImpl implements MinimumFinder {
      * @param root main root of {@link BinaryTree}
      * @return maximum value in subtree {@link BinaryTree}
      */
-    private int maxValue(BinaryTree root) {
+    protected int maxValue(BinaryTree root) {
         int maxLeft = Integer.MIN_VALUE;
         if (root.left != null) {
             maxLeft = maxValue(root.left);
@@ -55,7 +55,7 @@ public class MinimumFinderImpl implements MinimumFinder {
      * @param root main root of {@link BinaryTree}
      * @return minimum value in subtree {@link BinaryTree}
      */
-    private int minValue(BinaryTree root) {
+    protected int minValue(BinaryTree root) {
         int minLeft = Integer.MAX_VALUE;
         if (root.left != null) {
             minLeft = minValue(root.left);
